@@ -1,17 +1,50 @@
-function formFill(){
-    const content=document.querySelector("#content")
+
+const infoArr=[];
+function formFill(content){
+
     const form=document.createElement("form");
-    const lab=document.createElement("label");
-    lab.textContent="Enter Name";
-    form.append(lab);
-    const desc=document.createElement("input");
-    desc.setAttribute("type","text");
-    form.append(desc);
+    form.setAttribute("id","info");
+
+    const titleLabel=document.createElement("label");
+    titleLabel.textContent="Enter Title";
+    form.append(titleLabel);
+
+    const titleName=document.createElement("input"); //Title
+    titleName.setAttribute("type","text");
+    titleName.setAttribute("id","title");
+    form.append(titleName);
     form.append(document.createElement("br"));
+
+    const desc=document.createElement("label");//Description
+    desc.textContent="Write Notes";
+    form.append(desc);
+
+    const dec=document.createElement("input");
+    dec.setAttribute("type","text");
+    dec.setAttribute("id","nte");
+    form.append(dec);
+    form.append(document.createElement("br"));
+
     const buto=document.createElement("button");
     buto.setAttribute("type","submit");
     buto.textContent="Submit";
     form.append(buto);
+
     content.append(form);
+
+    form.addEventListener("submit",(e)=>{
+        e.preventDefault();
+        const data={
+            name: document.querySelector("#title").value,
+            notes: document.querySelector("#nte").value
+        };
+        infoArr.push(data);
+        rerender();
+    })
 }
-export{formFill};
+function rerender(){
+    const cnt=document.querySelector("#content");
+    cnt.innerHTML="";
+    formFill(content);
+}
+export{formFill, infoArr};
